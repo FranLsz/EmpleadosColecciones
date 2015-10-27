@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,14 +13,15 @@ namespace ColeccionesEmpleados
         static void Main(string[] args)
         {
             List<Empleado> empleados = new List<Empleado>();
-            int input = 3;
+            int input = 4;
 
             do
             {
                 Console.WriteLine("Menu:");
                 Console.WriteLine("1- Nuevo empleado");
                 Console.WriteLine("2- Listado de empleados");
-                Console.WriteLine("3- Salir");
+                Console.WriteLine("3- Buscar por edad");
+                Console.WriteLine("4- Salir");
                 Int32.TryParse(Console.ReadLine(), out input);
                 switch (input)
                 {
@@ -83,10 +85,32 @@ namespace ColeccionesEmpleados
 
                         Console.WriteLine("---------");
                         break;
+                    case 3:
+                        Console.WriteLine("Introduce nombre a buscar: ");
+                        var n = Console.ReadLine();
+
+
+                        Console.WriteLine("Introduce edad a buscar: ");
+                        int ed;
+                        Int32.TryParse(Console.ReadLine(), out ed);
+
+
+                        var p = empleados.Where(o => o.Nombre == n).OrderBy(o => o.Nombre).Take(3);
+
+                        var p2 = from o in empleados
+                                 where o.Nombre.Contains(n)
+                                 select o;
+
+                        foreach (var e in p)
+                        {
+                            Console.WriteLine(e);
+                        }
+
+                        break;
                 }
 
 
-            } while (input != 3);
+            } while (input != 4);
             Console.WriteLine("");
 
 
